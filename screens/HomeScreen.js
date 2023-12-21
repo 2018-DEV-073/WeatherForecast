@@ -1,11 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Alert } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ImageButton from '../components/ImageButton';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
     return (
         <View style={styles.container}>
             <Text style={styles.baseText}>
@@ -14,19 +12,19 @@ export default function HomeScreen() {
                 <Text>How is your internal weather today?</Text>
             </Text>
             <ImageButton
-                onPress={() => Alert.alert("Happy to know you are well! \n When the Lambo?")}
+                onPress={ () => navigation.navigate( "Forecast", {text : "Happy to know you are well! \n When the Lambo?"})}
                 imageStyle={styles.image}
                 source={require('../assets/sunny.png')} />
             <ImageButton
-                onPress={() => Alert.alert('Need to laugh? \n How do you get $1,000 in crypto? \n Invest $2,000.\n{From UpJoke}')}
+                onPress={() => navigation.navigate( "Forecast", {text :"Need to laugh? \n How do you get $1,000 in crypto? \n Invest $2,000.\n{From UpJoke}"})}
                 imageStyle={styles.image}
                 source={require('../assets/cloudy.png')} />
             <ImageButton
-                onPress={() => Alert.alert('Oh! FOMO go away!!!!')}
+                onPress={() => navigation.navigate( "Forecast", {text :'Oh! FOMO go away!!!!'})}
                 imageStyle={styles.image}
                 source={require('../assets/rainy.png')} />
             <ImageButton
-                onPress={() => Alert.alert('No storm, not even the one in your life, can last forever. Cryptosis will not last')}
+                onPress={() => navigation.navigate( "Forecast", {text :'No storm,\n not even the one in your life,\n can last forever.\n Cryptosis will not last!'})}
                 imageStyle={styles.image}
                 source={require('../assets/stormy.png')} />
 
