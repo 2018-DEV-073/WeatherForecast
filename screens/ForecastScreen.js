@@ -1,13 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, Animated, View } from 'react-native';
 
-export default function ForecastScreen({navigation, route}) {
-    let text = route.params.text;
+const AnimatedWidthHeight = (props) => {
+    const scaleAnimate = useRef(new Animated.Value(100)).current;
+    useEffect (() => {
+        Animated.timing(scaleAnimate, {
+            toValue: 200,
+            duration: 2000,
+            useNativeDriver: false,
+        }).start();
+    }, [scaleAnimate]);
+    const animationStyle = {
+        width: scaleAnimate,
+        height: scaleAnimate,
+        color: '#fff',
+        fontSize: 26,
+        fontWeight: 'bold'
+    };
     return (
         <View style={styles.container}>
-            <Text style={styles.baseText}>
-                <Text style={styles.baseText}>{text}</Text>
-            </Text>
+                <Animated.Text style={[animationStyle]}>{props.children}</Animated.Text>
+        </View>
+    );
+}
+
+export default function ForecastScreen({ navigation, route }) {
+    let text = route.params.text;
+
+    return (
+        <View style={styles.container}>
+            <AnimatedWidthHeight >{text}</AnimatedWidthHeight>
             <StatusBar style="auto" />
         </View>
     );
@@ -20,23 +43,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         color: '#fff'
-    },
-    baseText: {
-        color: '#fff',
-        fontSize: 20
-    },
-    title: {
-        fontSize: 60,
-        fontWeight: 'bold',
-    },
-    button: {
-        width: 120,
-        margin: 24,
-    },
-    image: {
-        width: 100,
-        height: 100,
-        padding: 12,
-        marginTop: 24
     }
 });
+
